@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
-import { RouterModule } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,9 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    NgxEchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,16 @@
-/* No CSS *//*# sourceMappingURL=dashboard.component.css.map */
+#main {
+  float: left;
+  width: 45%;
+  height: 600px;
+}
+
+#second {
+  display: inline-block;
+  width: 100%;
+  height: 600px;
+}
+
+.clear {
+  clear: both;
+}
+/*# sourceMappingURL=dashboard.component.css.map */
