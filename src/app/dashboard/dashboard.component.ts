@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   total: number = 0;
   world: number = 0;
   others: number = 0;
-  years: Number[] = [];
+  years: number[] = [];
   gdpByYears: number[] = [];
   countries: string[] = [];
   countryCodes: string[] = [];
@@ -57,9 +57,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
     var chartDom = document.getElementById('main')!;
     var myChart = echarts.init(chartDom, 'dark');
-    var piChartOption: EChartsOption;
+    var pieOption: EChartsOption;
 
-    piChartOption = {
+    pieOption = {
       title: {
         text: 'GDP of Top 10 Countires',
         subtext: 'World Bank',
@@ -101,8 +101,14 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       ]
     };
 
-    piChartOption && myChart.setOption(piChartOption);
+    pieOption && myChart.setOption(pieOption);
     },100)
+    this.dashboardService.getByYear('Afg').subscribe(data=>{
+      for(let i=0; i<=2020-1981; i++){
+        this.gdpByYears.unshift(data[1][i].value);
+      }
+      this.drawLine();
+    })
   }
   ngAfterContentInit(){
 
@@ -121,29 +127,29 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
   drawLine(){
 
-var chartDom = document.getElementById('second')!;
+setTimeout(()=>{
+  var chartDom = document.getElementById('second')!;
+  this.myChart = echarts.init(chartDom, 'dark');
+  var option;
 
-this.myChart = echarts.init(chartDom, 'dark');
-var option;
 
+  option = {
+    xAxis: {
+      type: 'category',
+      data: this.years
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: this.gdpByYears,
+        type: 'line'
+      }
+    ]
+  };
 
-option = {
-  xAxis: {
-    type: 'category',
-    data: this.years
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: this.gdpByYears,
-      type: 'line'
-    }
-  ]
-};
-
-option && this.myChart.setOption(option);
+  option && this.myChart.setOption(option);})
 
 
   }
@@ -155,10 +161,6 @@ option && this.myChart.setOption(option);
         this.gdpByYears.unshift(data[1][i].value);
       }
     })
-    setTimeout(() => {
-      if(this.myChart!=null||this.myChart!='')
-        this.myChart = null;
-      this.drawLine();
-    }, 300);
+
   }
 }

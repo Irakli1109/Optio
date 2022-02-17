@@ -1,10 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/dashboard" style="color: red;">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/analytics">Analytics</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <button (click)="getAPIResult()">first</button>
-<button (click)="drawLine()">second chart</button>
+<button (click)="drawLine()" class="btn btn-success">Show Data</button>
 <br>
 <select name="" id="" (change)="selectedChange($event)">
   <option *ngFor="let country of countries; index as i" value={{countryCodes[i]}} >{{country}}</option>
 </select>
+
 <br>
 <div id="main"></div>
 <div id="second"></div>

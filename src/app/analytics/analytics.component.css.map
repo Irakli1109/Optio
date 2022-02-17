@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "",
+    "mappings": "AAAA,AAAA,KAAK,CACL;EACE,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,KAAK;CACd;;AAED,AAAA,YAAY,CAAC;EACX,KAAK,EAAE,GAAG;CACX;;AAED,AACE,SADO,AACN,MAAM,CAAA;EACL,KAAK,EAAE,cAAc;CACtB",
     "sources": [
         "analytics.component.scss"
     ],
