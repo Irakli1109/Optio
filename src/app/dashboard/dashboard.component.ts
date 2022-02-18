@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   countryCodes: string[] = [];
   array: number[] = [];
   myChart: any;
+  chartDom: any;
+  option: any;
 
   map1:Map<any, any> = new Map();
   constructor(public dashboardService: DashboardService) {
@@ -57,9 +59,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
     var chartDom = document.getElementById('main')!;
     var myChart = echarts.init(chartDom, 'dark');
-    var pieOption: EChartsOption;
-
-    pieOption = {
+    var pieOption = {
       title: {
         text: 'GDP of Top 10 Countires',
         subtext: 'World Bank',
@@ -107,33 +107,11 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       for(let i=0; i<=2020-1981; i++){
         this.gdpByYears.unshift(data[1][i].value);
       }
-      this.drawLine();
-    })
-  }
-  ngAfterContentInit(){
-
-  }
-
-  getAPIResult(){
-    this.dashboardService.getData("all", 2020).subscribe(data=>{
-      for(let i=49; i<=265; i++){
-        //console.log(data[1][i].country.value+data[1][i].value);
-        if(data[1][i].value!=null)
-        this.map1.set((data[1][i].value), data[1][i].country.value);
-      }
-
-    });
-  }
-
-  drawLine(){
 
 setTimeout(()=>{
-  var chartDom = document.getElementById('second')!;
-  this.myChart = echarts.init(chartDom, 'dark');
-  var option;
-
-
-  option = {
+  this.chartDom = document.getElementById('second')!;
+  this.myChart = echarts.init(this.chartDom, 'dark');
+  this.option = {
     xAxis: {
       type: 'category',
       data: this.years
@@ -149,18 +127,47 @@ setTimeout(()=>{
     ]
   };
 
-  option && this.myChart.setOption(option);})
-
+  this.option && this.myChart.setOption(this.option)})
+    })
+  }
+  ngAfterContentInit(){
 
   }
 
-  selectedChange(event: any){
+  getAPIResult(){
+    this.dashboardService.getData("all", 2020).subscribe(data=>{
+      for(let i=49; i<=265; i++){
+        if(data[1][i].value!=null)
+        this.map1.set((data[1][i].value), data[1][i].country.value);
+      }
+    });
+  }
+
+  drawLine(event: any){
     this.gdpByYears = []; //empty array
-    this.dashboardService.getByYear(event.target.value).subscribe(data=>{
+    this.dashboardService.getByYear(event.value).subscribe(data=>{
       for(let i=0; i<=2020-1981; i++){
         this.gdpByYears.unshift(data[1][i].value);
       }
     })
+    this.option.series.data = this.gdpByYears;
+setTimeout(()=>{
+  this.option = {
+    xAxis: {
+      type: 'category',
+      data: this.years
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: this.gdpByYears,
+        type: 'line'
+      }
+    ]
+  };
 
+  this.option && this.myChart.setOption(this.option)}, 700)
   }
 }

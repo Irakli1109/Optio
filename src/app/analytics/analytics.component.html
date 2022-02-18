@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -25,5 +25,14 @@
   </div>
   <input #input2 type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
 </div>
-<button class="btn btn-success" (click)="filter(input1, input2)">Filter</button>
+<button class="btn btn-success filter" (click)="filter(input1, input2)">Filter Years</button>
+<div class="clear"></div>
+<br>
+<select #selectElement class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+  <option *ngFor="let country of countries; index as i" value={{countryCodes[i]}} >{{country}}</option>
+</select>
+<button class="btn btn-success control" (click)="add(selectElement)">Add Country</button>
+<button class="btn btn-danger control" (click)="remove(selectElement)">Remove Country</button>
+<button class="btn btn-warning control" (click)="clearAll()">Clear All</button>
+<br>
 <div id="main"></div>

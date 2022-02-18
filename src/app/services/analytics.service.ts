@@ -20,4 +20,8 @@ export class AnalyticsService {
       this.years.push(i);
     return this.years;
   }
+
+  getCountries(): Observable<any>{
+    return this.http.get(this.url2+`/all/indicator/NY.GDP.MKTP.CD?format=json&date=2020&per_page=266`);
+  }
 }
