@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   countries: string[] = [];
   countryCodes: string[] = [];
   array: number[] = [];
+  gdpValues: number[] = [];
   myChart: any;
   chartDom: any;
   option: any;
