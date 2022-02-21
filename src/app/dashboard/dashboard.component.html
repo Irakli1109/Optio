@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/dashboard" style="color: red;">Dashboard</a>
+        <a class="nav-link" routerLink="/dashboard" style="color: red"
+          >Dashboard</a
+        >
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/analytics">Analytics</a>
@@ -12,11 +12,23 @@
     </ul>
   </div>
 </nav>
+
 <div id="main"></div>
-<select #selectRef class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-  <option *ngFor="let country of countries; index as i" value={{countryCodes[i]}} >{{country}}</option>
+<select
+  #selectRef
+  class="form-select form-select-lg mb-3"
+  aria-label=".form-select-lg example"
+>
+  <option
+    *ngFor="let country of countries; index as i"
+    value="{{ countryCodes[i] }}"
+  >
+    {{ country }}
+  </option>
 </select>
-<button (click)="drawLine(selectRef)" class="btn btn-success show">Show Data</button>
+<button (click)="drawLine(selectRef)" class="btn btn-success show">
+  Show Data
+</button>
 <div id="second"></div>
 <h1>Table For Latest GDP Statistics</h1>
 <table class="table table-dark">
@@ -30,9 +42,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let country of countries; index as i">
-      <th scope="row">{{i+1}}</th>
-      <td>{{country}}</td>
-      <td>{{array[i] | currency}}</td>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ country }}</td>
+      <td>${{ gdpValues[i] | numberSuffix }}</td>
       <td>2020</td>
     </tr>
   </tbody>

@@ -7,14 +7,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxEchartsModule } from 'ngx-echarts';
-import {enableProdMode} from '@angular/core';
+import { enableProdMode } from '@angular/core';
+import { NumberSuffixPipe } from './services/number-suffix.pipe';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    AnalyticsComponent
-  ],
+  declarations: [AppComponent, DashboardComponent, AnalyticsComponent, NumberSuffixPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,6 +19,6 @@ import {enableProdMode} from '@angular/core';
     NgxEchartsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
