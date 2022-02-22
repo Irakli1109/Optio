@@ -30,4 +30,15 @@ export class AnalyticsService {
         `/all/indicator/NY.GDP.MKTP.CD?format=json&date=2020&per_page=266`
     );
   }
+
+  getDataByYears(
+    country: string,
+    start: number = 1980,
+    end: number = 2020
+  ): Observable<any> {
+    return this.http.get(
+      this.url2 +
+        `/${country}/indicator/NY.GDP.MKTP.CD?format=json&date=${start}:${end}&per_page=266`
+    );
+  }
 }

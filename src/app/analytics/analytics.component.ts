@@ -90,9 +90,7 @@ export class AnalyticsComponent implements OnInit {
       },
       series: this.countrySeries,
     };
-    setTimeout(() => {
-      this.option && this.myChart.setOption(this.option);
-    }, 1500);
+    this.option && this.myChart.setOption(this.option);
     this.countryList();
   }
 
@@ -109,9 +107,7 @@ export class AnalyticsComponent implements OnInit {
           val2.value
         );
       }
-      setTimeout(() => {
-        this.option && this.myChart.setOption(this.option);
-      }, 1000);
+      this.option && this.myChart.setOption(this.option);
     }
   }
 
@@ -124,35 +120,19 @@ export class AnalyticsComponent implements OnInit {
         this.map2.set(data[1][i].country.value, data[1][i].countryiso3code);
       }
     });
-    //console.log(this.map1)
   }
+
   contryValuesByYears(
     countryCode: string,
     start: number = 1980,
     end: number = 2020
   ): number[] {
     let values: number[] = [];
-    for (let i = start; i <= end; i++) {
-      this.analytics.getData(countryCode, i).subscribe((data) => {
-        values.push(data[1][0].value);
-      });
-    }
-    return values;
-  }
-
-  selectedChange(event: any) {
-    /* //console.log(event.target.value)
-    this.countrySeries.push({
-      name: this.map1.get(event.target.value),
-      type: 'line',
-      data: this.contryValuesByYears(event.target.value, 1980, 2020),
-      smooth: true
-    })
-    this.chosenCountries.push(this.map1.get(event.target.value) as string)
-    setTimeout(()=>{
+    this.analytics.getDataByYears(countryCode, start, end).subscribe((data) => {
+      for (let item of data[1]) values.unshift(item.value);
       this.option && this.myChart.setOption(this.option);
-    }, 1000)
-    //console.log(this.map1.get(event.target.value)) */
+    });
+    return values;
   }
 
   add(event: any) {
@@ -171,9 +151,6 @@ export class AnalyticsComponent implements OnInit {
           smooth: true,
         });
         this.chosenCountries.push(this.map1.get(event.value) as string);
-        setTimeout(() => {
-          this.option && this.myChart.setOption(this.option);
-        }, 1000);
       }
     }
   }
