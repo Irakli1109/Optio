@@ -11,13 +11,14 @@ export class DashboardService {
   url2: string = 'https://api.worldbank.org/v2/country';
   constructor(public http: HttpClient) {}
 
+  //return observable for one country with one specific year
   getData(country: string, date: number): Observable<any> {
     return this.http.get(
       this.url2 +
         `/${country}/indicator/NY.GDP.MKTP.CD?format=json&date=${date}&per_page=266`
     );
   }
-
+  //get country data for all year
   getByYear(country: string): Observable<any> {
     return this.http.get(
       this.url2 +

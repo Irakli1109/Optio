@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   map1: Map<any, any> = new Map();
   constructor(public dashboardService: DashboardService) {
     this.dashboardService.getData('GEO', 2020).subscribe((data) => {
-      //console.log(data[1]);
       this.GeoGdp = data[1][0].value;
     });
     this.dashboardService.getData('all', 2020).subscribe((data) => {
@@ -134,7 +133,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     });
   }
   ngAfterContentInit() {}
-
+  //graph data would be updated according to chosen one.
   drawLine(event: any) {
     this.gdpByYears = []; //empty array
     this.dashboardService.getByYear(event.value).subscribe((data) => {

@@ -93,7 +93,7 @@ export class AnalyticsComponent implements OnInit {
     this.option && this.myChart.setOption(this.option);
     this.countryList();
   }
-
+  //filtering year axis by our chosen period
   filter(val1: any = 1980, val2: any = 2020) {
     if (val1.value >= 1980 && val2.value <= 2020 && val1.value <= val2.value) {
       this.option.xAxis.data = this.analytics.yearFilter(
@@ -110,7 +110,7 @@ export class AnalyticsComponent implements OnInit {
       this.option && this.myChart.setOption(this.option);
     }
   }
-
+  //fills arrays with country names and country codes. also fills maps for next use
   countryList() {
     this.analytics.getCountries().subscribe((data) => {
       for (let i = 49; i <= 265; i++) {
@@ -121,7 +121,7 @@ export class AnalyticsComponent implements OnInit {
       }
     });
   }
-
+  //reutrn specific country gdp values from specifi years
   contryValuesByYears(
     countryCode: string,
     start: number = 1980,
@@ -134,7 +134,7 @@ export class AnalyticsComponent implements OnInit {
     });
     return values;
   }
-
+  //adds chosen country from select if country limit is not achieved on graph
   add(event: any) {
     if (this.counter < 10) {
       let included: boolean = false;
@@ -154,7 +154,7 @@ export class AnalyticsComponent implements OnInit {
       }
     }
   }
-
+  //deletes specific country from graph if it is shown on it.
   remove(event: any) {
     if (this.counter > 1) {
       this.chosenCountries = this.chosenCountries.filter(
@@ -170,7 +170,7 @@ export class AnalyticsComponent implements OnInit {
       this.option && this.myChart.setOption(this.option, true);
     }
   }
-
+  //clears all countries from graph, sets counter to 0, empties arrays countrySeries & chosenCountries
   clearAll() {
     this.counter = 0;
     this.countrySeries = [];

@@ -11,7 +11,12 @@ import { enableProdMode } from '@angular/core';
 import { NumberSuffixPipe } from './services/number-suffix.pipe';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, AnalyticsComponent, NumberSuffixPipe],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    AnalyticsComponent,
+    NumberSuffixPipe,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
