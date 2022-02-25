@@ -1,27 +1,44 @@
-# Optio
+### 📃 ზოგადი აღწერა
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+#### ამ აპლიკაციის საშუალებით თქვენ შეგიძლიათ გაეცნოთ მსოფლიოს ნებისიერი ქვეყნის ეკონომიკურ მონაცემებს და შეადაროთ ეს მონაცემები სხვა ქვეყნების მონაცემებს. აქ შეხვდებით GDP(Gross Domestic Product) გადანაწილებას Top 10 ქვეყანაში და შეძლებთ ნახოთ საქართველოსა და მისი მეზობლების ეკონომიკურ მდგომარეობას. აპლიკაცია მოიცავს ორ გვერდს: dashboard და analytics.
 
-## Development server
+##### *მონაცემები აღებულია მსოფლიო ბანკის ბაზებიდან.*
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 🌍 Dashboard
 
-## Code scaffolding
+გვერდი გვიჩვენებს სტატისტიკურ მონაცემებს ქვეყნების GDP შესახებ სხვადახვა მეთოდებით: pie chart, line graph, table
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+🟣 **Pie Chart**
+- თქვენ შეგიძლიათ დაათვალიეროთ მსოფლიოს ეკონომიკურად ყველაზე ძლიერი 10 ქვეყნის მონაცემები.
+- ნახოთ თუ როგორ არის გდპ გადანაწილებული ამ 10 ქვეყანაში და დანარჩენ მსოფლიოში.
+  -აქვე შეგიძლიათ ნახოთ მონაცემები დოლარებში რიცხობრივად
 
-## Build
+📈 **Line Graph**
+- აქ თქვენ შეგიძლიათ ნახოთ სხვადასხვა ქვეყნის GDP მონაცემები 1980 წლიდან 2020 წლის ჩათვლით.
+- თქვენ შეგიძლიათ აირჩიოთ სასურველი ქვეყანა დროფდაუნით და შემდეგ დააჭიროთ "Show Data" ღილაკს რათა გამოჩნდეს ახალი გრაფი.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+📊 **Table**
+- ცხრილში თქვენ შეგიძლიათ ნახოთ მსოფლიოს ყველა ქვეყნიდ მონაცემები 2020 წლის მიხედვით.
 
-## Running unit tests
+## 🌍 Analytics
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ამ გვერდზე გადასვლისას თქვენ შეგიძლიათ ნახოთ სხვადასხვა ქვეყნების GDP დინამიკა თქვენივე სასურველ წლებში.
 
-## Running end-to-end tests
+- წლების გასაფილტრად საკმარისია შეიყვანოთ საწყისი და საბოლოო წლები და დააჭიროთ "Filter Years" ღილაკს.
+- გრაფიკზე ნებისმიერი ქვეყნის დასამატებლად მთავარია დროფდაუნშ აირჩიოთ ის და დააწვეთ "Add Country" ღილაკს.
+- ქვეყნის წასაჭლელად გრაფიკიდან, ჯერ უნდა აირჩიოთ ეს ქვეყანა დროფდაუნში და შემდეგ დააწვეთ "Remove Country".
+- გრაფიკის სრულიად გასასუფთავებლად დააჭირეთ ღილაკს "Clear All"
+- ქვეყნების ლიმიტი რაც შეიძლება გრაფიკზე გამოჩნდეს არის 10
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 🛠️ გამოყენებული ტექნოლოგიები
+- Angular
+- Apache ECharts (გრაფებისთვის)
+- API მონაცემებისთვის https://api.worldbank.org/
 
-## Further help
+### How to build Project?
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ჩაწერეთ ტერმინალში შემდეგი ბრძანებები:
+1. git clone https://github.com/Irakli1109/Optio.git
+2. npm install (თუ NPM არ გაქვთ, ჯერ დააინსტალირეთ ის)
+3. ng serve
+4. გადადით ბრაუზერში მისამართზე: http://localhost:4200/
