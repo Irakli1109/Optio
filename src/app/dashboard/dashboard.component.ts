@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
       var chartDom = document.getElementById('main')!;
       var myChart = echarts.init(chartDom, 'dark');
-      var pieOption = {
+      var pieOption: any = {
         title: {
           text: 'GDP of Top 10 Countires',
           subtext: 'World Bank',
