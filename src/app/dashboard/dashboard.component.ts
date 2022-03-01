@@ -1,12 +1,12 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core'
 import { DashboardService } from '../services/dashboard.service'
 import * as echarts from 'echarts'
+import { Component, OnInit } from '@angular/core'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterContentInit {
+export class DashboardComponent implements OnInit {
   GeoGdp: number = 0;
   total: number = 0;
   world: number = 0;
@@ -26,6 +26,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     this.dashboardService.getData('GEO', 2020).subscribe((data) => {
       this.GeoGdp = data[1][0].value
     })
+  }
+
+  ngOnInit () {
+    // get all data for 2020 year
     this.dashboardService.getData('all', 2020).subscribe((data) => {
       for (let i = 49; i <= 265; i++) {
         this.total += data[1][i].value
@@ -40,16 +44,12 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       this.array.sort(function (a, b) {
         return a < b ? 1 : -1
       }) // descending  order
+
       this.others = this.total
       for (let i = 0; i < 10; i++) {
         this.others -= this.array[i]
       }
       for (let i = 1980; i < 2021; i++) this.years.push(i)
-    })
-  }
-
-  ngOnInit () {
-    this.dashboardService.getData('all', 2020).subscribe((data) => {
       for (let i = 49; i <= 265; i++) {
         if (data[1][i].value != null) { this.map1.set(data[1][i].value, data[1][i].country.value) }
       }
@@ -130,7 +130,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     })
   }
 
-  ngAfterContentInit () {}
   // graph data would be updated according to chosen one.
   drawLine (event: any) {
     this.gdpByYears = [] // empty array
