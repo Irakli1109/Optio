@@ -1,12 +1,10 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { EChartsOption } from 'echarts';
-import { AnalyticsService } from '../services/analytics.service';
-import { DashboardService } from '../services/dashboard.service';
-import * as echarts from 'echarts';
+import { AfterContentInit, Component, OnInit } from '@angular/core'
+import { DashboardService } from '../services/dashboard.service'
+import * as echarts from 'echarts'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterContentInit {
   GeoGdp: number = 0;
@@ -24,55 +22,54 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   option: any;
 
   map1: Map<any, any> = new Map();
-  constructor(public dashboardService: DashboardService) {
+  constructor (public dashboardService: DashboardService) {
     this.dashboardService.getData('GEO', 2020).subscribe((data) => {
-      this.GeoGdp = data[1][0].value;
-    });
+      this.GeoGdp = data[1][0].value
+    })
     this.dashboardService.getData('all', 2020).subscribe((data) => {
       for (let i = 49; i <= 265; i++) {
-        this.total += data[1][i].value;
+        this.total += data[1][i].value
         if (data[1][i].value != null) {
-          this.array.push(data[1][i].value);
-          this.countries.push(data[1][i].country.value);
-          this.countryCodes.push(data[1][i].countryiso3code);
+          this.array.push(data[1][i].value)
+          this.countries.push(data[1][i].country.value)
+          this.countryCodes.push(data[1][i].countryiso3code)
         }
       }
-      this.gdpValues = this.array.slice();
-      this.world = data[1][48].value; //world value
+      this.gdpValues = this.array.slice()
+      this.world = data[1][48].value // world value
       this.array.sort(function (a, b) {
-        return a < b ? 1 : -1;
-      }); //descending  order
-      this.others = this.total;
+        return a < b ? 1 : -1
+      }) // descending  order
+      this.others = this.total
       for (let i = 0; i < 10; i++) {
-        this.others -= this.array[i];
+        this.others -= this.array[i]
       }
-      for (let i = 1980; i < 2021; i++) this.years.push(i);
-    });
+      for (let i = 1980; i < 2021; i++) this.years.push(i)
+    })
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.dashboardService.getData('all', 2020).subscribe((data) => {
       for (let i = 49; i <= 265; i++) {
-        if (data[1][i].value != null)
-          this.map1.set(data[1][i].value, data[1][i].country.value);
+        if (data[1][i].value != null) { this.map1.set(data[1][i].value, data[1][i].country.value) }
       }
 
-      type EChartsOption = echarts.EChartsOption;
+      // type EChartsOption = echarts.EChartsOption;
 
-      var chartDom = document.getElementById('main')!;
-      var myChart = echarts.init(chartDom, 'dark');
-      var pieOption: any = {
+      const chartDom = document.getElementById('main')!
+      const myChart = echarts.init(chartDom, 'dark')
+      const pieOption: any = {
         title: {
           text: 'GDP of Top 10 Countires',
           subtext: 'World Bank',
-          left: 'center',
+          left: 'center'
         },
         tooltip: {
-          trigger: 'item',
+          trigger: 'item'
         },
         legend: {
           orient: 'vertical',
-          left: 'left',
+          left: 'left'
         },
         series: [
           {
@@ -90,75 +87,76 @@ export class DashboardComponent implements OnInit, AfterContentInit {
               { value: this.array[7], name: this.map1.get(this.array[7]) },
               { value: this.array[8], name: this.map1.get(this.array[8]) },
               { value: this.array[9], name: this.map1.get(this.array[9]) },
-              { value: this.others, name: 'Others' },
+              { value: this.others, name: 'Others' }
             ],
             emphasis: {
               itemStyle: {
                 shadowBlur: 20,
                 shadowOffsetX: 0,
-                shadowColor: 'rgba(2, 0, 0, 0.5)',
-              },
-            },
-          },
-        ],
-      };
+                shadowColor: 'rgba(2, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      }
 
-      pieOption && myChart.setOption(pieOption);
+      pieOption && myChart.setOption(pieOption)
 
       this.dashboardService.getByYear('Afg').subscribe((data) => {
         for (let i = 0; i <= 2020 - 1981; i++) {
-          this.gdpByYears.unshift(data[1][i].value);
+          this.gdpByYears.unshift(data[1][i].value)
         }
 
-        this.chartDom = document.getElementById('second')!;
-        this.myChart = echarts.init(this.chartDom, 'dark');
+        this.chartDom = document.getElementById('second')!
+        this.myChart = echarts.init(this.chartDom, 'dark')
         this.option = {
           xAxis: {
             type: 'category',
-            data: this.years,
+            data: this.years
           },
           yAxis: {
-            type: 'value',
+            type: 'value'
           },
           series: [
             {
               data: this.gdpByYears,
-              type: 'line',
-            },
-          ],
-        };
+              type: 'line'
+            }
+          ]
+        }
 
-        this.option && this.myChart.setOption(this.option);
-      });
-    });
+        this.option && this.myChart.setOption(this.option)
+      })
+    })
   }
-  ngAfterContentInit() {}
-  //graph data would be updated according to chosen one.
-  drawLine(event: any) {
-    this.gdpByYears = []; //empty array
+
+  ngAfterContentInit () {}
+  // graph data would be updated according to chosen one.
+  drawLine (event: any) {
+    this.gdpByYears = [] // empty array
     this.dashboardService.getByYear(event.value).subscribe((data) => {
       for (let i = 0; i <= 2020 - 1981; i++) {
-        this.gdpByYears.unshift(data[1][i].value);
+        this.gdpByYears.unshift(data[1][i].value)
       }
 
-      this.option.series.data = this.gdpByYears;
+      this.option.series.data = this.gdpByYears
       this.option = {
         xAxis: {
           type: 'category',
-          data: this.years,
+          data: this.years
         },
         yAxis: {
-          type: 'value',
+          type: 'value'
         },
         series: [
           {
             data: this.gdpByYears,
-            type: 'line',
-          },
-        ],
-      };
+            type: 'line'
+          }
+        ]
+      }
 
-      this.option && this.myChart.setOption(this.option);
-    });
+      this.option && this.myChart.setOption(this.option)
+    })
   }
 }
